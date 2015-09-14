@@ -2,7 +2,9 @@ require 'sinatra'
 require 'datamapper'
 
 get '/' do
-  "Hello World"
+  @questions = Question.all :order => :id.desc
+  @title = "All Questions"
+  erb :home
 end
 
 # users
@@ -18,7 +20,7 @@ post '/form' do
   'form posted!'
 end
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")
+DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/quora.db")
  
 class User
   include DataMapper::Resource
